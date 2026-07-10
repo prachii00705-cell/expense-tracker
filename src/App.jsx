@@ -79,6 +79,25 @@ function App() {
     return filtered;
   }, [expenses, search, sortBy, categoryFilter]);
 
+  function clearAllExpenses() {
+    if (expenses.length === 0) {
+      alert("There are no expenses to clear.");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      "Are you sure you want to delete all expenses? This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    setExpenses([]);
+
+    console.log(
+      "[Analytics] User cleared all expenses"
+    );
+  }
+
   return (
     <div className="app">
       <header className="header">
@@ -102,6 +121,7 @@ function App() {
         <ExpenseForm
           expenses={expenses}
           setExpenses={setExpenses}
+          clearAllExpenses={clearAllExpenses}
         />
 
         <SearchBar

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { exportCSV } from "../utils/exportCSV";
 import { exportPDF } from "../utils/exportPDF";
 
-function ExpenseForm({ expenses, setExpenses }) {
+function ExpenseForm({ expenses, setExpenses, clearAllExpenses }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("Food");
@@ -106,6 +106,15 @@ function ExpenseForm({ expenses, setExpenses }) {
           >
             Export PDF
           </button>
+
+          <button
+            type="button"
+            className="danger-btn"
+            onClick={clearAllExpenses}
+          >
+            Clear All
+          </button>
+          
         </div>
 
       </form>
