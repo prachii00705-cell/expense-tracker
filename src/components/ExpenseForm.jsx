@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { exportCSV } from "../utils/exportCSV";
+import { exportPDF } from "../utils/exportPDF";
 
 function ExpenseForm({ expenses, setExpenses }) {
   const [title, setTitle] = useState("");
@@ -85,10 +87,27 @@ function ExpenseForm({ expenses, setExpenses }) {
           <option>Health</option>
           <option>Other</option>
         </select>
+        
+        <div className="form-buttons">
+          <button type="submit">
+            Add Expense
+          </button>
 
-        <button type="submit">
-          Add Expense
-        </button>
+          <button
+            type="button"
+            onClick={() => exportCSV(expenses)}
+          >
+            Export CSV
+          </button>
+
+          <button
+            type="button"
+            onClick={() => exportPDF(expenses)}
+          >
+            Export PDF
+          </button>
+        </div>
+
       </form>
 
       {errors.title && (

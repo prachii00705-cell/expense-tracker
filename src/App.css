@@ -364,6 +364,27 @@ body{
     margin-top: 8px;
 }
 
+.form-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.form-buttons button{
+    padding:14px 22px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+    background:#111827;
+    color:#fff;
+    font-size:15px;
+}
+
+.form-buttons button:hover{
+    background:#374151;
+}
+
 /* ==========================
    ANALYTICS
 ========================== */
