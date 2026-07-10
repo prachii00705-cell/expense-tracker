@@ -1,16 +1,33 @@
-import { useEffect, useMemo, useState } from "react";
-import "./App.css";
-import { toast } from "react-toastify";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  lazy,
+  Suspense,
+} from "react";
 
-import DashboardInsights from "./components/DashboardInsights";
+import "./App.css";
+
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Summary from "./components/Summary";
-import Analytics from "./components/Analytics";
 import ExpenseForm from "./components/ExpenseForm";
 import SearchBar from "./components/SearchBar";
 import ExpenseList from "./components/ExpenseList";
-import ExpenseChart from "./components/ExpenseChart";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+// Lazy-loaded components
+const Analytics = lazy(() =>
+  import("./components/Analytics")
+);
+
+const DashboardInsights = lazy(() =>
+  import("./components/DashboardInsights")
+);
+
+const ExpenseChart = lazy(() =>
+  import("./components/ExpenseChart")
+);
 
 function App() {
   const [expenses, setExpenses] = useState(() => {
@@ -24,8 +41,8 @@ function App() {
 
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("newest");
-  const [categoryFilter, setCategoryFilter] = useState("All");
-  const [loading, setLoading] = useState(true);
+  const [categoryFilter, setCategoryFilter] =
+    useState("All");
 
   useEffect(() => {
     localStorage.setItem(
@@ -33,14 +50,6 @@ function App() {
       JSON.stringify(expenses)
     );
   }, [expenses]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 700);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const filteredExpenses = useMemo(() => {
     let filtered = [...expenses].filter((expense) =>
@@ -51,14 +60,16 @@ function App() {
 
     if (categoryFilter !== "All") {
       filtered = filtered.filter(
-        (expense) => expense.category === categoryFilter
+        (expense) =>
+          expense.category === categoryFilter
       );
     }
 
     switch (sortBy) {
       case "oldest":
         filtered.sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
+          (a, b) =>
+            new Date(a.date) - new Date(b.date)
         );
         break;
 
@@ -76,16 +87,24 @@ function App() {
 
       default:
         filtered.sort(
-          (a, b) => new Date(b.date) - new Date(a.date)
+          (a, b) =>
+            new Date(b.date) - new Date(a.date)
         );
     }
 
     return filtered;
-  }, [expenses, search, sortBy, categoryFilter]);
+  }, [
+    expenses,
+    search,
+    sortBy,
+    categoryFilter,
+  ]);
 
   function clearAllExpenses() {
     if (expenses.length === 0) {
-      toast.warning("There are no expenses to clear.");
+      toast.warning(
+        "There are no expenses to clear."
+      );
       return;
     }
 
@@ -98,10 +117,6 @@ function App() {
     setExpenses([]);
 
     toast.success("All expenses cleared.");
-
-    console.log(
-      "[Analytics] User cleared all expenses"
-    );
   }
 
   return (
@@ -111,20 +126,30 @@ function App() {
           <h1>Expense Tracker</h1>
 
           <p>
-            Track and manage your expenses efficiently.
+            Track and manage your expenses
+            efficiently.
           </p>
         </div>
       </header>
 
       <main className="container">
-
         <Summary expenses={expenses} />
 
-        <Analytics expenses={expenses} />
+        <Suspense fallback={null}>
+          <Analytics expenses={expenses} />
+        </Suspense>
 
-        <DashboardInsights expenses={expenses} />
+        <Suspense fallback={null}>
+          <DashboardInsights
+            expenses={expenses}
+          />
+        </Suspense>
 
-        <ExpenseChart expenses={expenses} />
+        <Suspense fallback={null}>
+          <ExpenseChart
+            expenses={expenses}
+          />
+        </Suspense>
 
         <ExpenseForm
           expenses={expenses}
@@ -138,26 +163,21 @@ function App() {
           sortBy={sortBy}
           setSortBy={setSortBy}
           categoryFilter={categoryFilter}
-          setCategoryFilter={setCategoryFilter}
+          setCategoryFilter={
+            setCategoryFilter
+          }
         />
 
-        {loading ? (
-          <div className="loader">
-            <div className="spinner"></div>
-            <p>Loading expenses...</p>
-          </div>
-        ) : (
-          <ExpenseList
-            expenses={filteredExpenses}
-            totalExpenses={expenses.length}
-            setExpenses={setExpenses}
-          />
-        )}
-
+        <ExpenseList
+          expenses={filteredExpenses}
+          totalExpenses={expenses.length}
+          setExpenses={setExpenses}
+        />
       </main>
 
       <footer className="footer">
-        © 2026 Expense Tracker • Built with React & Vite
+        © 2026 Expense Tracker • Built with React &
+        Vite
       </footer>
 
       <ToastContainer
@@ -169,7 +189,6 @@ function App() {
         pauseOnHover
         theme="light"
       />
-
     </div>
   );
 }

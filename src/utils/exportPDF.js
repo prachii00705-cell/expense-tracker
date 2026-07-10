@@ -1,11 +1,12 @@
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
-
-export function exportPDF(expenses) {
+export async function exportPDF(expenses) {
   if (expenses.length === 0) {
     alert("No expenses to export.");
     return;
   }
+
+  // Lazy-load heavy libraries only when needed
+  const { default: jsPDF } = await import("jspdf");
+  const { default: autoTable } = await import("jspdf-autotable");
 
   const doc = new jsPDF();
 
@@ -14,9 +15,11 @@ export function exportPDF(expenses) {
     0
   );
 
+  // Report Title
   doc.setFontSize(20);
   doc.text("Expense Tracker Report", 14, 20);
 
+  // Report Date
   doc.setFontSize(11);
   doc.text(
     `Generated: ${new Date().toLocaleDateString("en-IN")}`,
@@ -24,6 +27,7 @@ export function exportPDF(expenses) {
     28
   );
 
+  // Expense Table
   autoTable(doc, {
     startY: 36,
     head: [["Date", "Expense", "Category", "Amount"]],
@@ -31,26 +35,33 @@ export function exportPDF(expenses) {
       expense.date,
       expense.title,
       expense.category,
-      `Rs. ${expense.amount}`,
+      `₹${Number(expense.amount).toLocaleString("en-IN")}`,
     ]),
     theme: "striped",
     headStyles: {
       fillColor: [17, 24, 39],
+      textColor: [255, 255, 255],
+    },
+    alternateRowStyles: {
+      fillColor: [245, 245, 245],
+    },
+    styles: {
+      fontSize: 10,
+      cellPadding: 3,
     },
   });
 
+  // Total
   const finalY = doc.lastAutoTable.finalY || 40;
 
   doc.setFontSize(13);
+  doc.setFont(undefined, "bold");
   doc.text(
-    `Total Expenses: Rs. ${total.toLocaleString("en-IN")}`,
+    `Total Expenses: ₹${total.toLocaleString("en-IN")}`,
     14,
     finalY + 12
   );
 
+  // Save PDF
   doc.save("Expense_Report.pdf");
-
-  console.log(
-    "[Analytics] User exported expense report as PDF"
-  );
 }

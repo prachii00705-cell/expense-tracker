@@ -14,17 +14,17 @@ function Summary({ expenses }) {
     <section className="summary">
 
       <div className="summary-card">
-        <h3>Total Expenses</h3>
+        <h2>Total Expenses</h2>
         <p>₹{totalExpense.toLocaleString("en-IN")}</p>
       </div>
 
       <div className="summary-card">
-        <h3>Transactions</h3>
+        <h2>Transactions</h2>
         <p>{totalTransactions}</p>
       </div>
 
       <div className="summary-card">
-        <h3>Categories</h3>
+        <h2>Categories</h2>
         <p>{totalCategories}</p>
       </div>
 

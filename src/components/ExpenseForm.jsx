@@ -102,7 +102,9 @@ function ExpenseForm({ expenses, setExpenses, clearAllExpenses }) {
 
           <button
             type="button"
-            onClick={() => exportPDF(expenses)}
+            onClick={async () => {
+              await exportPDF(expenses);
+            }}
           >
             Export PDF
           </button>
@@ -114,7 +116,7 @@ function ExpenseForm({ expenses, setExpenses, clearAllExpenses }) {
           >
             Clear All
           </button>
-          
+
         </div>
 
       </form>
