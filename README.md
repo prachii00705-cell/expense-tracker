@@ -25,3 +25,14 @@ A responsive Expense Tracker built with **React + Vite** to help users manage ex
 
 
 ## Live Demo
+
+
+## Screenshots
+### Desktop View
+![Desktop View](src/assets/desktop.png)
+
+### Mobile View
+![Mobile View](src/assets/mobile.png)
+
+### Lighthouse Report
+![Lighthouse Report](src/assets/lighthouse.png)
