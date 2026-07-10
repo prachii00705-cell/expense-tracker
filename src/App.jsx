@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import { toast } from "react-toastify";
 
+import DashboardInsights from "./components/DashboardInsights";
 import Summary from "./components/Summary";
 import Analytics from "./components/Analytics";
 import ExpenseForm from "./components/ExpenseForm";
@@ -120,6 +121,8 @@ function App() {
         <Summary expenses={expenses} />
 
         <Analytics expenses={expenses} />
+
+        <DashboardInsights expenses={expenses} />
 
         <ExpenseChart expenses={expenses} />
 
