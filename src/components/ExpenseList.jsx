@@ -1,10 +1,17 @@
 import ExpenseRow from "./ExpenseRow";
 
-function ExpenseList({ expenses, setExpenses }) {
-  if (expenses.length === 0) {
+function ExpenseList({
+  expenses,
+  totalExpenses,
+  setExpenses,
+}) {
+
+  if (totalExpenses === 0) {
     return (
       <section className="expense-list">
+
         <div className="empty-state">
+
           <div className="empty-icon">💳</div>
 
           <h2>No Expenses Yet</h2>
@@ -21,7 +28,30 @@ function ExpenseList({ expenses, setExpenses }) {
           >
             + Add Your First Expense
           </button>
+
         </div>
+
+      </section>
+    );
+  }
+
+  if (expenses.length === 0) {
+    return (
+      <section className="expense-list">
+
+        <div className="empty-state">
+
+          <div className="empty-icon">🔍</div>
+
+          <h2>No Expenses Found</h2>
+
+          <p>
+            No expenses match your search or selected category.
+            Try changing your search keyword or category filter.
+          </p>
+
+        </div>
+
       </section>
     );
   }
@@ -34,6 +64,7 @@ function ExpenseList({ expenses, setExpenses }) {
         <table className="expense-table">
 
           <thead>
+
             <tr>
               <th>Date</th>
               <th>Expense</th>
@@ -41,9 +72,11 @@ function ExpenseList({ expenses, setExpenses }) {
               <th>Amount</th>
               <th>Actions</th>
             </tr>
+
           </thead>
 
           <tbody>
+
             {expenses.map((expense) => (
               <ExpenseRow
                 key={expense.id}
@@ -52,6 +85,7 @@ function ExpenseList({ expenses, setExpenses }) {
                 setExpenses={setExpenses}
               />
             ))}
+
           </tbody>
 
         </table>

@@ -3,6 +3,8 @@ function SearchBar({
   setSearch,
   sortBy,
   setSortBy,
+  categoryFilter,
+  setCategoryFilter,
 }) {
   return (
     <section className="search-sort">
@@ -15,8 +17,26 @@ function SearchBar({
       />
 
       <select
+        value={categoryFilter}
+        onChange={(e) =>
+          setCategoryFilter(e.target.value)
+        }
+        aria-label="Filter Expenses"
+      >
+        <option value="All">All Categories</option>
+        <option value="Food">Food</option>
+        <option value="Travel">Travel</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Bills">Bills</option>
+        <option value="Health">Health</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <select
         value={sortBy}
-        onChange={(e) => setSortBy(e.target.value)}
+        onChange={(e) =>
+          setSortBy(e.target.value)
+        }
         aria-label="Sort Expenses"
       >
         <option value="newest">
