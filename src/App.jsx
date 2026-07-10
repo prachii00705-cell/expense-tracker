@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import { toast } from "react-toastify";
 
 import Summary from "./components/Summary";
 import Analytics from "./components/Analytics";
@@ -7,6 +8,8 @@ import ExpenseForm from "./components/ExpenseForm";
 import SearchBar from "./components/SearchBar";
 import ExpenseList from "./components/ExpenseList";
 import ExpenseChart from "./components/ExpenseChart";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [expenses, setExpenses] = useState(() => {
@@ -39,7 +42,7 @@ function App() {
   }, []);
 
   const filteredExpenses = useMemo(() => {
-    let filtered = expenses.filter((expense) =>
+    let filtered = [...expenses].filter((expense) =>
       expense.title
         .toLowerCase()
         .includes(search.toLowerCase())
@@ -81,7 +84,7 @@ function App() {
 
   function clearAllExpenses() {
     if (expenses.length === 0) {
-      alert("There are no expenses to clear.");
+      toast.warning("There are no expenses to clear.");
       return;
     }
 
@@ -92,6 +95,8 @@ function App() {
     if (!confirmed) return;
 
     setExpenses([]);
+
+    toast.success("All expenses cleared.");
 
     console.log(
       "[Analytics] User cleared all expenses"
@@ -151,6 +156,17 @@ function App() {
       <footer className="footer">
         © 2026 Expense Tracker • Built with React & Vite
       </footer>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="light"
+      />
+
     </div>
   );
 }
