@@ -406,3 +406,31 @@ body{
 }
 
 }
+
+/* ==========================
+   PIE CHART
+========================== */
+
+.chart-card{
+    background:#fff;
+    padding:32px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    margin-bottom:32px;
+}
+
+.chart-card h2{
+    font-size:28px;
+    color:#111827;
+    margin-bottom:8px;
+}
+
+.chart-card p{
+    color:#6b7280;
+    margin-bottom:24px;
+}
+
+.chart-card canvas{
+    max-width:420px;
+    margin:auto;
+}

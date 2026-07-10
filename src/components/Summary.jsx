@@ -6,36 +6,26 @@ function Summary({ expenses }) {
 
   const totalTransactions = expenses.length;
 
-  const averageExpense =
-    totalTransactions === 0
-      ? 0
-      : Math.round(totalExpense / totalTransactions);
+  const totalCategories = new Set(
+    expenses.map((expense) => expense.category)
+  ).size;
 
   return (
     <section className="summary">
 
       <div className="summary-card">
-
         <h3>Total Expenses</h3>
-
         <p>₹{totalExpense.toLocaleString("en-IN")}</p>
-
       </div>
 
       <div className="summary-card">
-
-        <h3>Total Transactions</h3>
-
+        <h3>Transactions</h3>
         <p>{totalTransactions}</p>
-
       </div>
 
       <div className="summary-card">
-
-        <h3>Average Expense</h3>
-
-        <p>₹{averageExpense.toLocaleString("en-IN")}</p>
-
+        <h3>Categories</h3>
+        <p>{totalCategories}</p>
       </div>
 
     </section>

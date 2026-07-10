@@ -6,6 +6,7 @@ import Analytics from "./components/Analytics";
 import ExpenseForm from "./components/ExpenseForm";
 import SearchBar from "./components/SearchBar";
 import ExpenseList from "./components/ExpenseList";
+import ExpenseChart from "./components/ExpenseChart";
 
 function App() {
   const [expenses, setExpenses] = useState(() => {
@@ -91,9 +92,12 @@ function App() {
       </header>
 
       <main className="container">
+
         <Summary expenses={expenses} />
 
         <Analytics expenses={expenses} />
+
+        <ExpenseChart expenses={expenses} />
 
         <ExpenseForm
           expenses={expenses}
@@ -121,6 +125,7 @@ function App() {
             setExpenses={setExpenses}
           />
         )}
+
       </main>
 
       <footer className="footer">
