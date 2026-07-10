@@ -54,8 +54,17 @@ function ExpenseRow({ expense, expenses, setExpenses }) {
   return (
     <tr>
       <td>
+        {new Date(expense.date).toLocaleDateString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+        })}
+      </td>
+
+      <td>
         {isEditing ? (
           <input
+            type="text"
             value={editedExpense.title}
             onChange={(e) =>
               setEditedExpense({
@@ -88,7 +97,11 @@ function ExpenseRow({ expense, expenses, setExpenses }) {
             <option>Other</option>
           </select>
         ) : (
-          expense.category
+          <span
+            className={`badge ${expense.category.toLowerCase()}`}
+          >
+            {expense.category}
+          </span>
         )}
       </td>
 
@@ -136,9 +149,7 @@ function ExpenseRow({ expense, expenses, setExpenses }) {
           </button>
         )}
 
-        <button
-          onClick={() => deleteExpense(expense.id)}
-        >
+        <button onClick={() => deleteExpense(expense.id)}>
           Delete
         </button>
       </td>

@@ -1,55 +1,45 @@
 function Summary({ expenses }) {
-
-  const total = expenses.reduce(
-
-    (sum, expense) => sum + expense.amount,
-
+  const totalExpense = expenses.reduce(
+    (sum, expense) => sum + Number(expense.amount),
     0
-
   );
 
-  const categories = new Set(
+  const totalTransactions = expenses.length;
 
-    expenses.map(
-
-      (expense) => expense.category
-
-    )
-
-  ).size;
+  const averageExpense =
+    totalTransactions === 0
+      ? 0
+      : Math.round(totalExpense / totalTransactions);
 
   return (
-
     <section className="summary">
 
       <div className="summary-card">
 
-        <h3>Total Expense</h3>
+        <h3>Total Expenses</h3>
 
-        <p>₹{total}</p>
-
-      </div>
-
-      <div className="summary-card">
-
-        <h3>Transactions</h3>
-
-        <p>{expenses.length}</p>
+        <p>₹{totalExpense.toLocaleString("en-IN")}</p>
 
       </div>
 
       <div className="summary-card">
 
-        <h3>Categories</h3>
+        <h3>Total Transactions</h3>
 
-        <p>{categories}</p>
+        <p>{totalTransactions}</p>
+
+      </div>
+
+      <div className="summary-card">
+
+        <h3>Average Expense</h3>
+
+        <p>₹{averageExpense.toLocaleString("en-IN")}</p>
 
       </div>
 
     </section>
-
   );
-
 }
 
 export default Summary;

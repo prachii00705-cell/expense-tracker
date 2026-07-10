@@ -28,27 +28,36 @@ function ExpenseList({ expenses, setExpenses }) {
 
   return (
     <section className="expense-list">
-      <table className="expense-table">
-        <thead>
-          <tr>
-            <th>Expense</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          {expenses.map((expense) => (
-            <ExpenseRow
-              key={expense.id}
-              expense={expense}
-              expenses={expenses}
-              setExpenses={setExpenses}
-            />
-          ))}
-        </tbody>
-      </table>
+      <div className="table-container">
+
+        <table className="expense-table">
+
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Expense</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {expenses.map((expense) => (
+              <ExpenseRow
+                key={expense.id}
+                expense={expense}
+                expenses={expenses}
+                setExpenses={setExpenses}
+              />
+            ))}
+          </tbody>
+
+        </table>
+
+      </div>
+
     </section>
   );
 }
