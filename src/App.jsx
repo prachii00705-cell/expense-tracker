@@ -135,17 +135,33 @@ function App() {
       <main className="container">
         <Summary expenses={expenses} />
 
-        <Suspense fallback={null}>
+        <Suspense
+          fallback={
+            <div className="loading-section">
+              Loading analytics...
+            </div>
+          }
+        >
           <Analytics expenses={expenses} />
         </Suspense>
 
-        <Suspense fallback={null}>
-          <DashboardInsights
-            expenses={expenses}
-          />
+        <Suspense
+          fallback={
+            <div className="loading-section">
+              Loading insights...
+            </div>
+          }
+        >
+          <DashboardInsights expenses={expenses} />
         </Suspense>
 
-        <Suspense fallback={null}>
+        <Suspense
+          fallback={
+            <div className="loading-section">
+              Loading chart...
+            </div>
+          }
+        >
           <ExpenseChart
             expenses={expenses}
           />
